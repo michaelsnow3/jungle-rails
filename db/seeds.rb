@@ -132,5 +132,18 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+Review.destroy_all
+User.destroy_all
+
+user1 = User.create({
+  first_name: 'Mike',
+  last_name: 'Snow',
+  email: 'mikesnow444@gmail.com',
+  password: 'asdf',
+  password_confirmation: 'asdf'
+})
+Review.create(rating: 5, description: "asdf1",  user_id: 1, product_id: 12)
+Review.create(rating: 2, description: "asdf2",  user_id: 1, product_id: 12)
+Review.create(rating: 3, description: "asdf3",  user_id: 1, product_id: 12)
 
 puts "DONE!"
