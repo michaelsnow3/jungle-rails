@@ -4,7 +4,30 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
+  <% #loop through line items and display product info for each %>
+  <% @order.line_items.each do |line_item| %>
+    <% product = Product.find(line_item.product_id) %>
+    <article class="product">
+      <header>
+        <%= link_to product do %>
+          <%= image_tag product.image.thumb, alt: product.name %>
+          <h4><%= product.name %></h4>
+        <% end %>
+      </header>
+      <p class="description">
+        <%= product.description %>
+      </p>
+      <p class="description">
+        Quantity: <%= line_item.quantity %><br>
+        Total: $<%= line_item.total_price %>
+      </p>
+    </article>
+    <hr>
+  <% end %>
+
   <div class="order-summary jumbotron">
+    <h4>Total Price: $<%= @order.total %></h4>
+    <h4><%= @order.email %></h4>
     <h4>Thank you for your order!</h4>
   </div>
 
