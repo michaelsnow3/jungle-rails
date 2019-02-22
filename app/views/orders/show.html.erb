@@ -5,7 +5,7 @@
   </header>
 
   <% #loop through line items and display product info for each %>
-  <% @order.line_items.each do |line_item| %>
+  <% @line_items.each do |line_item| %>
     <% product = Product.find(line_item.product_id) %>
     <article class="product">
       <header>

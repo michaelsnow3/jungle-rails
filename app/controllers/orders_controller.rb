@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @line_items = @order.line_items
   end
 
   def create
@@ -10,6 +11,10 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
+
+      # send email when order is placed
+      EmailReceipt.order_receipt(order.email, order).deliver_now
+
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
@@ -31,7 +36,8 @@ class OrdersController < ApplicationController
       source:      params[:stripeToken],
       amount:      cart_subtotal_cents,
       description: "Khurram Virani's Jungle Order",
-      currency:    'cad'
+      currency:    # sends the email 
+      'cad'
     )
   end
 
