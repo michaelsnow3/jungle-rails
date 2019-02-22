@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
       empty_cart!
 
       # send email when order is placed
-      EmailReceipt.order_receipt(order.email, order).deliver_now
+      EmailReceipt.order_receipt(order).deliver_now
 
       redirect_to order, notice: 'Your Order has been placed.'
     else
