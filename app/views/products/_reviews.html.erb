@@ -14,7 +14,7 @@
   <% if review.user_id === session[:user_id] %>
     <%= button_to "delete", {controller: :reviews,
       action: 'destroy', id: review.id, product_id: review.product_id
-      }, { :method => :delete=, class: "btn btn-danger"} %>
+      }, { :method => :delete, class: "btn btn-danger"} %>
   <% end %>
   <hr>
 <% end %>
