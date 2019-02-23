@@ -1,0 +1,15 @@
+<h3>Reviews</h3>
+
+<% @reviews.each do |review| %>
+  <dl class="dl-horizontal">
+    <% if review.rating %>
+      <dt>Rating</dt>
+      <dd><%= review.rating %></dd>
+    <% end %>
+    <% if review.rating %>
+      <dt>Description</dt>
+      <dd><%= review.description %></dd>
+    <% end %>
+  </dl>
+  <hr>
+<% end %>
