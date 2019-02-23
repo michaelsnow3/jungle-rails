@@ -16,4 +16,8 @@ class ReviewsController < ApplicationController
     redirect_to :back
   end
 
+  def destroy
+
+  end
+
 end
