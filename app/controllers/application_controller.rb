@@ -39,4 +39,9 @@ class ApplicationController < ActionController::Base
     redirect_to '/login' unless current_user
   end
 
+  def sold_out?(product)
+    product.quantity === 0
+  end
+  helper_method :sold_out?
+
 end
