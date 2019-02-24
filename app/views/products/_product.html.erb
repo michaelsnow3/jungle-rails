@@ -9,6 +9,7 @@
     <%= product.description %>
   </p>
   <footer class="actions">
+   Average rating: <%= (product.reviews.average(:rating)).to_f.round(1) %><br>
     <%= button_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary' , method: :post do %>
       <%= fa_icon "shopping-cart", text: 'Add' %>
     <% end %>
