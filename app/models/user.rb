@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # user authentication class method
   def self.authenticate_with_credentials(email, password)
     striped_email = email.strip
-    @user = User.find_by_email(striped_email.downcase) 
+    @user = User.where("LOWER(email) = ?", striped_email.downcase).first 
     if @user && @user.authenticate(password)
       @user
     else

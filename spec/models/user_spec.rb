@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     @user = User.new({
       first_name: 'Mike',
       last_name: 'Snow',
-      email: 'mikesnow444@gmail.com',
+      email: 'Mikesnow444@gmail.com',
       password: '12345678',
       password_confirmation: '12345678'
     }) 
@@ -109,7 +109,7 @@ RSpec.describe User, type: :model do
     end
 
     it "should return correct user if credentials are correct" do
-      @valid_user = User.authenticate_with_credentials('mikesnow444@gmail.com', '12345678')
+      @valid_user = User.authenticate_with_credentials('Mikesnow444@gmail.com', '12345678')
 
       expect(@valid_user).to eq(@user)
     end
