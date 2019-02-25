@@ -1,19 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "Validations" do
 
-    # create valid user before each test
-    before(:each) do
-      @user = User.new({
-        first_name: 'Mike',
-        last_name: 'Snow',
-        email: 'mikesnow444@gmail.com',
-        password: '12345678',
-        password_confirmation: '12345678'
-      }) 
-      @user.save
-    end
+  # create valid user before each test
+  before(:each) do
+    @user = User.new({
+      first_name: 'Mike',
+      last_name: 'Snow',
+      email: 'mikesnow444@gmail.com',
+      password: '12345678',
+      password_confirmation: '12345678'
+    }) 
+    @user.save
+  end
+
+  describe "Validations" do
 
     it "should be valid with valid field inputs" do
       expect(@user).to be_valid
@@ -94,18 +95,6 @@ RSpec.describe User, type: :model do
   end
 
   describe ".authenticate_with_credentials" do
-
-    # create valid user before each test
-    before(:each) do
-      @user = User.new({
-        first_name: 'Mike',
-        last_name: 'Snow',
-        email: 'mikesnow444@gmail.com',
-        password: '12345678',
-        password_confirmation: '12345678'
-      }) 
-      @user.save
-    end
 
     it "should retern nil if email is not in database" do
       @user = User.authenticate_with_credentials("not_in_database@example.com", "12345678")
