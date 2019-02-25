@@ -142,8 +142,8 @@ user1 = User.create({
   password: 'asdf',
   password_confirmation: 'asdf'
 })
-Review.create(rating: 5, description: "asdf1",  user_id: 1, product_id: 12)
-Review.create(rating: 2, description: "asdf2",  user_id: 1, product_id: 12)
-Review.create(rating: 3, description: "asdf3",  user_id: 1, product_id: 12)
+user1.reviews.create(rating: 5, description: "asdf1", product_id: 12)
+user1.reviews.create(rating: 2, description: "asdf2", product_id: 12)
+user1.reviews.create(rating: 3, description: "asdf3", product_id: 12)
 
 puts "DONE!"
