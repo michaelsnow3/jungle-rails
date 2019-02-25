@@ -15,11 +15,11 @@ RSpec.describe User, type: :model do
       @user.save
     end
 
-    context "password validation" do
+    it "should be valid with valid field inputs" do
+      expect(@user).to be_valid
+    end
 
-      it "should be valid with valid field inputs" do
-        expect(@user).to be_valid
-      end
+    context "password validation" do
 
       it "should have error if password field is not included" do
         @user.password = nil
@@ -80,15 +80,43 @@ RSpec.describe User, type: :model do
         @user2 = User.new({
           first_name: 'Mike',
           last_name: 'Snow',
-          email: 'MIKESNOW444@gmail.com',
-          password: 'asdf',
-          password_confirmation: 'asdf'
+          email: 'MikESNOw444@gmail.com',
+          password: '12345678',
+          password_confirmation: '12345678'
         })
         @user2.save
 
         expect(@user2.errors.full_messages.first).to eql "Email has already been taken"
       end
 
+    end
+
+  end
+
+  describe ".authenticate_with_credentials" do
+
+    it "should retern nil if email is not in database" do
+      @user = User.authenticate_with_credentials("not_in_database@example.com", "12345678")
+
+      expect(@user).to eql nil
+    end
+
+    it "should return correct user if credentials are correct" do
+      @valid_user = User.authenticate_with_credentials('mikesnow444@gmail.com', '12345678')
+
+      expect(@valid_user).to eql @user
+    end
+
+    it "should return correct user if credentials are correct but wrong case" do
+      @valid_user = User.authenticate_with_credentials('MiKeSNow444@gmail.com', '12345678')
+
+      expect(@valid_user).to eql @user
+    end
+
+    it "should return correct user if credentials are correct but has white spaces before or after email" do
+      @valid_user = User.authenticate_with_credentials(' MiKeSNow444@gmail.com ', '12345678')
+
+      expect(@valid_user).to eql @user
     end
 
   end

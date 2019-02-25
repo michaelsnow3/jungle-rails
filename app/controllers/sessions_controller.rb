@@ -5,17 +5,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:email])
 
-    #check if email exists in db and if password is correct
-    if @user && @user.authenticate(params[:password])
-      #save user id in a cookie
-      session[:user_id] = @user.id
+    if user = User.authenticate_with_credentials(params[:email], params[:password])
+      # login is valid
+      session[:user_id] = user.id
       redirect_to '/'
     else
-      #if login is not valid
+      # login is not valid
       render :new
     end
+
   end
 
   def destroy
