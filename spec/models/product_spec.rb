@@ -9,6 +9,7 @@ RSpec.describe Product, type: :model do
         price: 800,
         quantity: 12
       })
+      @product.save
     end
 
     it "should be valid with presence of all valid fields" do
