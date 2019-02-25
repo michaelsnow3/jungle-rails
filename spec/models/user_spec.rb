@@ -9,8 +9,8 @@ RSpec.describe User, type: :model do
         first_name: 'Mike',
         last_name: 'Snow',
         email: 'mikesnow444@gmail.com',
-        password: 'asdf',
-        password_confirmation: 'asdf'
+        password: '12345678',
+        password_confirmation: '12345678'
       }) 
       @user.save
     end
@@ -41,6 +41,22 @@ RSpec.describe User, type: :model do
         @user.save
 
         expect(@user.errors.full_messages.first).to eql "Password confirmation doesn't match Password"
+      end
+
+      it "should have error if password is too short" do
+        @user.password = '1234567'
+        @user.password_confirmation = '1234567'
+        @user.save
+
+        expect(@user.errors.full_messages.first).to eql "Password is too short (minimum is 8 characters)"
+      end
+
+      it "should not have error if password is required length" do
+        @user.password = '12345678'
+        @user.password_confirmation = '12345678'
+        @user.save
+
+        expect(@user).to be_valid
       end
 
     end
