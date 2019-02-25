@@ -60,6 +60,19 @@ RSpec.describe User, type: :model do
         expect(@user2.errors.full_messages.first).to eql "Email has already been taken"
       end
 
+      it "should return error if email exists in database, case sensitive" do
+        @user2 = User.new({
+          first_name: 'Mike',
+          last_name: 'Snow',
+          email: 'MIKESNOW444@gmail.com',
+          password: 'asdf',
+          password_confirmation: 'asdf'
+        })
+        @user2.save
+
+        expect(@user2.errors.full_messages.first).to eql "Email has already been taken"
+      end
+
     end
 
   end
