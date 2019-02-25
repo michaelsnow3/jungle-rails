@@ -15,32 +15,52 @@ RSpec.describe User, type: :model do
       @user.save
     end
 
-    it "should be valid with valid field inputs" do
-      expect(@user).to be_valid
+    context "password validation" do
+
+      it "should be valid with valid field inputs" do
+        expect(@user).to be_valid
+      end
+
+      it "should have error if password field is not included" do
+        @user.password = nil
+        @user.save
+        
+        expect(@user.errors.full_messages.first).to eql "Password can't be blank"
+      end
+
+      it "should have error if password confirmation field is not included" do
+        @user.password_confirmation = nil
+        @user.save
+
+        expect(@user.errors.full_messages.first).to eql "Password confirmation can't be blank"
+      end
+
+      it "should have error if password and password confirmation don't match" do
+        @user.password = 'something'
+        @user.password_confirmation = 'different'
+        @user.save
+
+        expect(@user.errors.full_messages.first).to eql "Password confirmation doesn't match Password"
+      end
+
     end
 
-    it "should have error if password field is not included" do
-      @user.password = nil
-      @user.save
-      
-      expect(@user.errors.full_messages.first).to eql "Password can't be blank"
+    context "email confirmation" do
+
+      it "should return error if email exists in database" do
+        @user2 = User.new({
+          first_name: 'Mike',
+          last_name: 'Snow',
+          email: 'mikesnow444@gmail.com',
+          password: 'asdf',
+          password_confirmation: 'asdf'
+        })
+        @user2.save
+
+        expect(@user2.errors.full_messages.first).to eql "Email has already been taken"
+      end
+
     end
-
-    it "should have error if password confirmation field is not included" do
-      @user.password_confirmation = nil
-      @user.save
-
-      expect(@user.errors.full_messages.first).to eql "Password confirmation can't be blank"
-    end
-
-    it "should have error if password and password confirmation don't match" do
-      @user.password = 'something'
-      @user.password_confirmation = 'different'
-      @user.save
-
-      expect(@user.errors.full_messages.first).to eql "Password confirmation doesn't match Password"
-    end
-
 
   end
 end
