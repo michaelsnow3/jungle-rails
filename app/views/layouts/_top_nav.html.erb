@@ -54,7 +54,7 @@
           </ul>
         </li>
         <li>
-          <%= link_to cart_path do %>
+          <%= link_to cart_path, class: "my-cart" do %>
             <%= fa_icon "shopping-cart" %> My Cart (<%= cart.size %>)
           <% end %>
         </li>
